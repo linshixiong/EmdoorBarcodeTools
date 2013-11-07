@@ -1,0 +1,15 @@
+E:\Projects\IMEI_Reader\IMEI_Reader\bin\Release\Common.dll
+E:\Projects\IMEI_Reader\IMEI_Reader\bin\Release\Managed.AndroidDebugBridge.dll
+E:\Projects\IMEI_Reader\IMEI_Reader\bin\Release\Common.pdb
+E:\Projects\IMEI_Reader\IMEI_Reader\obj\Release\ResolveAssemblyReference.cache
+E:\Projects\IMEI_Reader\IMEI_Reader\obj\Release\IMEI_Reader.Properties.Resources.resources
+E:\Projects\IMEI_Reader\IMEI_Reader\obj\Release\BarcodeTools.csproj.GenerateResource.Cache
+E:\Projects\IMEI_Reader\IMEI_Reader\obj\Release\IMEI_Reader.PrinterConfig.resources
+E:\Projects\IMEI_Reader\IMEI_Reader\obj\Release\IMEI_Reader.Printer.resources
+E:\Projects\IMEI_Reader\IMEI_Reader\bin\Release\BarcodeTools.exe.config
+E:\Projects\IMEI_Reader\IMEI_Reader\bin\Release\BarcodeTools.exe
+E:\Projects\IMEI_Reader\IMEI_Reader\bin\Release\BarcodeTools.pdb
+E:\Projects\IMEI_Reader\IMEI_Reader\obj\Release\BarcodeTools.exe
+E:\Projects\IMEI_Reader\IMEI_Reader\obj\Release\BarcodeTools.pdb
+E:\Projects\IMEI_Reader\IMEI_Reader\obj\Release\IMEI_Reader.Writer.resources
+E:\Projects\IMEI_Reader\IMEI_Reader\obj\Release\IMEI_Reader.Main.resources

@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual C# Express 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarcodeTools", "IMEI_Reader\BarcodeTools.csproj", "{A6E60F9C-E776-4336-9B1D-9BF7070150D3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{9A9B07E5-7E1A-45D7-A74E-717F67184EFA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Barcode", "..\emdoor_apps\Barcode\Barcode\Barcode.csproj", "{51324ECA-B18F-4897-8611-AA0B39952099}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A6E60F9C-E776-4336-9B1D-9BF7070150D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6E60F9C-E776-4336-9B1D-9BF7070150D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6E60F9C-E776-4336-9B1D-9BF7070150D3}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A6E60F9C-E776-4336-9B1D-9BF7070150D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6E60F9C-E776-4336-9B1D-9BF7070150D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6E60F9C-E776-4336-9B1D-9BF7070150D3}.Release|x86.ActiveCfg = Release|Any CPU
+		{9A9B07E5-7E1A-45D7-A74E-717F67184EFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A9B07E5-7E1A-45D7-A74E-717F67184EFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A9B07E5-7E1A-45D7-A74E-717F67184EFA}.Debug|x86.ActiveCfg = Debug|x86
+		{9A9B07E5-7E1A-45D7-A74E-717F67184EFA}.Debug|x86.Build.0 = Debug|x86
+		{9A9B07E5-7E1A-45D7-A74E-717F67184EFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A9B07E5-7E1A-45D7-A74E-717F67184EFA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A9B07E5-7E1A-45D7-A74E-717F67184EFA}.Release|x86.ActiveCfg = Release|x86
+		{9A9B07E5-7E1A-45D7-A74E-717F67184EFA}.Release|x86.Build.0 = Release|x86
+		{51324ECA-B18F-4897-8611-AA0B39952099}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51324ECA-B18F-4897-8611-AA0B39952099}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51324ECA-B18F-4897-8611-AA0B39952099}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{51324ECA-B18F-4897-8611-AA0B39952099}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51324ECA-B18F-4897-8611-AA0B39952099}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51324ECA-B18F-4897-8611-AA0B39952099}.Release|x86.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
