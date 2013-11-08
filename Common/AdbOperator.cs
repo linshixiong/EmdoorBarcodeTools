@@ -11,7 +11,7 @@ namespace Common
 {
     public class AdbOperator
     {
-        private static string adbFilePath = string.Format("{0}tools\\adb.exe", AppDomain.CurrentDomain.BaseDirectory);
+        private static string adbFilePath = string.Format("{0}adb.exe", AppDomain.CurrentDomain.BaseDirectory);
 
 
 
