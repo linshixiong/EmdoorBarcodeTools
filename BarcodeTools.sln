@@ -5,8 +5,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarcodeTools", "IMEI_Reader
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{9A9B07E5-7E1A-45D7-A74E-717F67184EFA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Barcode", "..\emdoor_apps\Barcode\Barcode\Barcode.csproj", "{51324ECA-B18F-4897-8611-AA0B39952099}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,12 +27,6 @@ Global
 		{9A9B07E5-7E1A-45D7-A74E-717F67184EFA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9A9B07E5-7E1A-45D7-A74E-717F67184EFA}.Release|x86.ActiveCfg = Release|x86
 		{9A9B07E5-7E1A-45D7-A74E-717F67184EFA}.Release|x86.Build.0 = Release|x86
-		{51324ECA-B18F-4897-8611-AA0B39952099}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{51324ECA-B18F-4897-8611-AA0B39952099}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{51324ECA-B18F-4897-8611-AA0B39952099}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{51324ECA-B18F-4897-8611-AA0B39952099}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{51324ECA-B18F-4897-8611-AA0B39952099}.Release|Any CPU.Build.0 = Release|Any CPU
-		{51324ECA-B18F-4897-8611-AA0B39952099}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
