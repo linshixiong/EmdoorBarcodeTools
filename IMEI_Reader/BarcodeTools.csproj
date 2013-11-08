@@ -47,12 +47,6 @@
     <Compile Include="WriterConfig.designer.cs">
       <DependentUpon>WriterConfig.cs</DependentUpon>
     </Compile>
-    <Compile Include="Main.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Main.Designer.cs">
-      <DependentUpon>Main.cs</DependentUpon>
-    </Compile>
     <Compile Include="PrinterConfig.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -69,9 +63,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="WriterConfig.resx">
       <DependentUpon>WriterConfig.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Main.resx">
-      <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PrinterConfig.resx">
       <DependentUpon>PrinterConfig.cs</DependentUpon>
