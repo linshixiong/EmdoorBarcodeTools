@@ -1,6 +1,0 @@
-F:\Workspace\Coby\OTA_Tools\Common\bin\x86\Debug\Common.dll
-F:\Workspace\Coby\OTA_Tools\Common\bin\x86\Debug\Common.pdb
-F:\Workspace\Coby\OTA_Tools\Common\bin\x86\Debug\Managed.AndroidDebugBridge.dll
-F:\Workspace\Coby\OTA_Tools\Common\obj\x86\Debug\ResolveAssemblyReference.cache
-F:\Workspace\Coby\OTA_Tools\Common\obj\x86\Debug\Common.dll
-F:\Workspace\Coby\OTA_Tools\Common\obj\x86\Debug\Common.pdb
