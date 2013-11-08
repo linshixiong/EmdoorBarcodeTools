@@ -89,24 +89,24 @@ namespace IMEI_Reader
 
                     if (checkBoxSN.Checked)
                     {
-                        textBoxSN.Text = result[AdbOperator.CMD_READ_SN];
+                        textBoxSN.Text = result[CodeType.TYPE_SN];
                     }
                     if (checkBoxIMEI.Checked)
                     {
-                        textBoxIMEI.Text = result[AdbOperator.CMD_READ_IMEI];
+                        textBoxIMEI.Text = result[CodeType.TYPE_IMEI];
                     }
 
                     if (checkBoxWifi.Checked)
                     {
-                        textBoxWifi.Text = result[AdbOperator.CMD_READ_WIFI_MAC];
+                        textBoxWifi.Text = result[CodeType.TYPE_WIFI_MAC];
                     }
                     if (checkBoxBt.Checked)
                     {
-                        textBoxBt.Text = result[AdbOperator.CMD_READ_BT_MAC];
+                        textBoxBt.Text = result[CodeType.TYPE_BT_MAC];
                     }
                     if (checkBoxSwVersion.Checked)
                     {
-                        textBoxSwVersion.Text = result[AdbOperator.CMD_READ_SW_VERSION];
+                        textBoxSwVersion.Text = result[CodeType.TYPE_SW_VERSION];
 
                     }
                     panelProgress.Visible = false;
@@ -198,23 +198,23 @@ namespace IMEI_Reader
             List<int> cmds = new List<int>();
             if (checkBoxSN.Checked)
             {
-                cmds.Add(AdbOperator.CMD_READ_SN);
+                cmds.Add(CodeType.TYPE_SN);
             }
             if (checkBoxIMEI.Checked)
             {
-                cmds.Add(AdbOperator.CMD_READ_IMEI);
+                cmds.Add(CodeType.TYPE_IMEI);
             }
             if (checkBoxWifi.Checked)
             {
-                cmds.Add(AdbOperator.CMD_READ_WIFI_MAC);
+                cmds.Add(CodeType.TYPE_WIFI_MAC);
             }
             if (checkBoxBt.Checked)
             {
-                cmds.Add(AdbOperator.CMD_READ_BT_MAC);
+                cmds.Add(CodeType.TYPE_BT_MAC);
             }
             if (checkBoxSwVersion.Checked)
             {
-                cmds.Add(AdbOperator.CMD_READ_SW_VERSION);
+                cmds.Add(CodeType.TYPE_SW_VERSION);
             }
 
             if (cmds.Count == 0)
@@ -248,7 +248,7 @@ namespace IMEI_Reader
                 {
                     for (int i = 0; i < count; i++)
                     {
-                        codes.Add(new KeyValuePair<int, string>(AdbOperator.CMD_READ_SN, textBoxSN.Text.Trim()));
+                        codes.Add(new KeyValuePair<int, string>(CodeType.TYPE_SN, textBoxSN.Text.Trim()));
                     }
                   
                 }
@@ -263,7 +263,7 @@ namespace IMEI_Reader
                 {
                     for (int i = 0; i < count; i++)
                     {
-                        codes.Add(new KeyValuePair<int, string>(AdbOperator.CMD_READ_IMEI, textBoxIMEI.Text.Trim()));
+                        codes.Add(new KeyValuePair<int, string>(CodeType.TYPE_IMEI, textBoxIMEI.Text.Trim()));
                     }
                 }
             }
@@ -278,7 +278,7 @@ namespace IMEI_Reader
                 {
                     for (int i = 0; i < count; i++)
                     {
-                        codes.Add(new KeyValuePair<int, string>(AdbOperator.CMD_READ_WIFI_MAC, textBoxWifi.Text.Trim()));
+                        codes.Add(new KeyValuePair<int, string>(CodeType.TYPE_WIFI_MAC, textBoxWifi.Text.Trim()));
                     }
                 }
             }
@@ -293,7 +293,7 @@ namespace IMEI_Reader
                 {
                     for (int i = 0; i < count; i++)
                     {
-                        codes.Add(new KeyValuePair<int, string>(AdbOperator.CMD_READ_BT_MAC, textBoxBt.Text.Trim()));
+                        codes.Add(new KeyValuePair<int, string>(CodeType.TYPE_BT_MAC, textBoxBt.Text.Trim()));
                     }
                 }
             }
@@ -308,7 +308,7 @@ namespace IMEI_Reader
                 {
                     for (int i = 0; i < count; i++)
                     {
-                        codes.Add(new KeyValuePair<int, string>(AdbOperator.CMD_READ_SW_VERSION, textBoxSwVersion.Text.Trim()));
+                        codes.Add(new KeyValuePair<int, string>(CodeType.TYPE_SW_VERSION, textBoxSwVersion.Text.Trim()));
                     }
                 }
             }
@@ -566,15 +566,15 @@ namespace IMEI_Reader
             switch (codeType)
             {
                 
-                case AdbOperator.CMD_READ_SN:
+                case CodeType.TYPE_SN:
                     return "S/N:";
-                case AdbOperator.CMD_READ_IMEI:
+                case CodeType.TYPE_IMEI:
                     return "IMEI:";
-                case AdbOperator.CMD_READ_WIFI_MAC:
+                case CodeType.TYPE_WIFI_MAC:
                     return "WIFI MAC:";
-                case AdbOperator.CMD_READ_BT_MAC:
+                case CodeType.TYPE_BT_MAC:
                     return "Bluetooth MAC:";
-                case AdbOperator.CMD_READ_SW_VERSION:
+                case CodeType.TYPE_SW_VERSION:
                     return "SW Version:";
                 default:
                     return "Unknown:";

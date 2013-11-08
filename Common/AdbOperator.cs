@@ -13,11 +13,7 @@ namespace Common
     {
         private static string adbFilePath = string.Format("{0}tools\\adb.exe", AppDomain.CurrentDomain.BaseDirectory);
 
-        public const int CMD_READ_SN = 0x01;
-        public const int CMD_READ_IMEI = 0x02;
-        public const int CMD_READ_WIFI_MAC = 0x03;
-        public const int CMD_READ_BT_MAC = 0x04;
-        public const int CMD_READ_SW_VERSION = 0x05;
+
 
         private MessageHandler handler;
       
@@ -346,25 +342,25 @@ namespace Common
                     {
                         switch (cmd)
                         {
-                            case CMD_READ_SN:
+                            case CodeType.TYPE_SN:
                                 string sn = ExcuteSNReadCmd(out cmdResult);
-                                results.Add(CMD_READ_SN, sn);
+                                results.Add(CodeType.TYPE_SN, sn);
                                 break;
-                            case CMD_READ_IMEI:
+                            case CodeType.TYPE_IMEI:
                                 string imei = ExcuteIMEIReadCmd(out cmdResult);
-                                results.Add(CMD_READ_IMEI, imei);
+                                results.Add(CodeType.TYPE_IMEI, imei);
                                 break;
-                            case CMD_READ_WIFI_MAC:
+                            case CodeType.TYPE_WIFI_MAC:
                                 string wifi = ExcuteWifiAddressReadCmd(out cmdResult);
-                                results.Add(CMD_READ_WIFI_MAC, wifi);
+                                results.Add(CodeType.TYPE_WIFI_MAC, wifi);
                                 break;
-                            case CMD_READ_BT_MAC:
+                            case CodeType.TYPE_BT_MAC:
                                 string bt = ExcuteBtAddressReadCmd(out cmdResult);
-                                results.Add(CMD_READ_BT_MAC, bt);
+                                results.Add(CodeType.TYPE_BT_MAC, bt);
                                 break;
-                            case CMD_READ_SW_VERSION:
+                            case CodeType.TYPE_SW_VERSION:
                                 string version = ExcuteSWVersionReadCmd(out cmdResult);
-                                results.Add(CMD_READ_SW_VERSION, version);
+                                results.Add(CodeType.TYPE_SW_VERSION, version);
                                 break;
                             default:
                                 break;

@@ -29,6 +29,10 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.linkLabelBt = new System.Windows.Forms.LinkLabel();
+            this.linkLabelWifi = new System.Windows.Forms.LinkLabel();
+            this.linkLabelIMEI = new System.Windows.Forms.LinkLabel();
+            this.linkLabelSN = new System.Windows.Forms.LinkLabel();
             this.checkBox6 = new System.Windows.Forms.CheckBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -42,12 +46,17 @@
             this.textBoxWifi = new System.Windows.Forms.TextBox();
             this.textBoxIMEI = new System.Windows.Forms.TextBox();
             this.textBoxSN = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.buttonWrite = new System.Windows.Forms.Button();
+            this.labelMsg = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.linkLabelBt);
+            this.groupBox1.Controls.Add(this.linkLabelWifi);
+            this.groupBox1.Controls.Add(this.linkLabelIMEI);
+            this.groupBox1.Controls.Add(this.linkLabelSN);
             this.groupBox1.Controls.Add(this.checkBox6);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label3);
@@ -67,6 +76,55 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "烧写项";
+            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
+            // 
+            // linkLabelBt
+            // 
+            this.linkLabelBt.AutoSize = true;
+            this.linkLabelBt.Location = new System.Drawing.Point(371, 206);
+            this.linkLabelBt.Name = "linkLabelBt";
+            this.linkLabelBt.Size = new System.Drawing.Size(29, 12);
+            this.linkLabelBt.TabIndex = 5;
+            this.linkLabelBt.TabStop = true;
+            this.linkLabelBt.Tag = "4";
+            this.linkLabelBt.Text = "配置";
+            this.linkLabelBt.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_LinkClicked);
+            // 
+            // linkLabelWifi
+            // 
+            this.linkLabelWifi.AutoSize = true;
+            this.linkLabelWifi.Location = new System.Drawing.Point(371, 147);
+            this.linkLabelWifi.Name = "linkLabelWifi";
+            this.linkLabelWifi.Size = new System.Drawing.Size(29, 12);
+            this.linkLabelWifi.TabIndex = 5;
+            this.linkLabelWifi.TabStop = true;
+            this.linkLabelWifi.Tag = "3";
+            this.linkLabelWifi.Text = "配置";
+            this.linkLabelWifi.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_LinkClicked);
+            // 
+            // linkLabelIMEI
+            // 
+            this.linkLabelIMEI.AutoSize = true;
+            this.linkLabelIMEI.Location = new System.Drawing.Point(371, 92);
+            this.linkLabelIMEI.Name = "linkLabelIMEI";
+            this.linkLabelIMEI.Size = new System.Drawing.Size(29, 12);
+            this.linkLabelIMEI.TabIndex = 5;
+            this.linkLabelIMEI.TabStop = true;
+            this.linkLabelIMEI.Tag = "2";
+            this.linkLabelIMEI.Text = "配置";
+            this.linkLabelIMEI.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_LinkClicked);
+            // 
+            // linkLabelSN
+            // 
+            this.linkLabelSN.AutoSize = true;
+            this.linkLabelSN.Location = new System.Drawing.Point(371, 32);
+            this.linkLabelSN.Name = "linkLabelSN";
+            this.linkLabelSN.Size = new System.Drawing.Size(29, 12);
+            this.linkLabelSN.TabIndex = 5;
+            this.linkLabelSN.TabStop = true;
+            this.linkLabelSN.Tag = "1";
+            this.linkLabelSN.Text = "配置";
+            this.linkLabelSN.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_LinkClicked);
             // 
             // checkBox6
             // 
@@ -194,27 +252,39 @@
             this.textBoxSN.TabIndex = 0;
             this.textBoxSN.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxSN_KeyDown);
             // 
-            // button1
+            // buttonWrite
             // 
-            this.button1.Location = new System.Drawing.Point(362, 340);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "烧写";
-            this.button1.UseVisualStyleBackColor = true;
+            this.buttonWrite.Location = new System.Drawing.Point(362, 340);
+            this.buttonWrite.Name = "buttonWrite";
+            this.buttonWrite.Size = new System.Drawing.Size(75, 23);
+            this.buttonWrite.TabIndex = 1;
+            this.buttonWrite.Text = "烧写";
+            this.buttonWrite.UseVisualStyleBackColor = true;
+            // 
+            // labelMsg
+            // 
+            this.labelMsg.AutoSize = true;
+            this.labelMsg.Location = new System.Drawing.Point(12, 351);
+            this.labelMsg.Name = "labelMsg";
+            this.labelMsg.Size = new System.Drawing.Size(41, 12);
+            this.labelMsg.TabIndex = 2;
+            this.labelMsg.Text = "label5";
             // 
             // Writer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(449, 375);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.labelMsg);
+            this.Controls.Add(this.buttonWrite);
             this.Controls.Add(this.groupBox1);
             this.Name = "Writer";
             this.Text = "串号烧录器";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Writer_FormClosed);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -233,7 +303,12 @@
         private System.Windows.Forms.TextBox textBoxWifi;
         private System.Windows.Forms.TextBox textBoxIMEI;
         private System.Windows.Forms.TextBox textBoxSN;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button buttonWrite;
         private System.Windows.Forms.CheckBox checkBox6;
+        private System.Windows.Forms.Label labelMsg;
+        private System.Windows.Forms.LinkLabel linkLabelBt;
+        private System.Windows.Forms.LinkLabel linkLabelWifi;
+        private System.Windows.Forms.LinkLabel linkLabelIMEI;
+        private System.Windows.Forms.LinkLabel linkLabelSN;
     }
 }

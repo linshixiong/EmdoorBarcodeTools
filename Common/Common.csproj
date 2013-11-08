@@ -63,7 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdbOperator.cs" />
-    <Compile Include="Code128.cs" />
+    <Compile Include="CodeType.cs" />
     <Compile Include="TSCLib.cs" />
     <Compile Include="WMIUsbQuery.cs" />
     <Compile Include="CommandResultReceiver.cs" />

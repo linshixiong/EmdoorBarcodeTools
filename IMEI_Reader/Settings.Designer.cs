@@ -418,5 +418,53 @@ namespace IMEI_Reader {
                 this["AutoPrint"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int InputSNType {
+            get {
+                return ((int)(this["InputSNType"]));
+            }
+            set {
+                this["InputSNType"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int InputIMEIType {
+            get {
+                return ((int)(this["InputIMEIType"]));
+            }
+            set {
+                this["InputIMEIType"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int InputWIFIType {
+            get {
+                return ((int)(this["InputWIFIType"]));
+            }
+            set {
+                this["InputWIFIType"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int InputBTType {
+            get {
+                return ((int)(this["InputBTType"]));
+            }
+            set {
+                this["InputBTType"] = value;
+            }
+        }
     }
 }

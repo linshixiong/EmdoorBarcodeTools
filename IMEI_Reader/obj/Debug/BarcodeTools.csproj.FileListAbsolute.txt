@@ -12,3 +12,5 @@ E:\Projects\IMEI_Reader\IMEI_Reader\obj\Debug\IMEI_Reader.Writer.resources
 E:\Projects\IMEI_Reader\IMEI_Reader\obj\Debug\BarcodeTools.csproj.GenerateResource.Cache
 E:\Projects\IMEI_Reader\IMEI_Reader\obj\Debug\BarcodeTools.exe
 E:\Projects\IMEI_Reader\IMEI_Reader\obj\Debug\BarcodeTools.pdb
+E:\Projects\IMEI_Reader\IMEI_Reader\obj\Debug\IMEI_Reader.Main.resources
+E:\Projects\IMEI_Reader\IMEI_Reader\obj\Debug\IMEI_Reader.WriterConfig.resources
