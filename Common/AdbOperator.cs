@@ -16,7 +16,7 @@ namespace Common
 
 
         private MessageHandler handler;
-      
+
         private Form form;
 
         private bool isCanceled = false;
@@ -96,182 +96,6 @@ namespace Common
         }
 
 
-        /// <summary>
-        /// 读取IMEI
-        /// </summary>
-        /// <param name="o"></param>
-        public void StartReadIMEI(object o)
-        {
-            form.Invoke(handler, Messages.MSG_READ_SN_START, null);
-            bool success = true;
-            string error_msg = null;
-            if (!StartAdbProcess())
-            {
-                error_msg = "adb进程启动失败";
-                success = false;
-            }
-            if (isCanceled)
-            {
-                goto END;
-            }
-            try
-            {
-                AndroidDebugBridge.Initialize(true);
-                AndroidDebugBridge.CreateBridge();
-                AndroidDebugBridge.Instance.Start();
-            }
-
-            catch (Exception)
-            {
-                error_msg = "adb服务启动失败";
-                success = false;
-            }
-            if (isCanceled)
-            {
-                goto END;
-            }
-            if (success)
-            {
-                form.Invoke(handler, Messages.MSG_READ_SN_STATE_CHANGE, "正在检查设备...");
-                int deviceCount = GetDeviceCount();
-
-
-                if (isCanceled)
-                {
-                    goto END;
-                }
-                if (deviceCount == 0)
-                {
-                    //无设备
-                    error_msg = "未找到adb设备，确保设备已连接并请重试";
-                    success = false;
-                }
-                else if (deviceCount > 1)
-                {
-                    //太多设备
-                    error_msg = "无法对大于1台设备进行烧录，请拔除多余的设备";
-                    success = false;
-
-                }
-                else
-                {
-                    form.Invoke(handler, Messages.MSG_READ_SN_STATE_CHANGE, "正在读取序列号...");
-                    string cmdResult = null;
-                    string snRead = ExcuteIMEIReadCmd(out cmdResult);
-                    if (!string.IsNullOrEmpty(snRead))
-                    {
-                        form.Invoke(handler, Messages.MSG_READ_SN_SUCCESS, snRead);
-                    }
-                    else
-                    {
-                        error_msg = "序列号读取失败，序列号可能未烧写";
-                        success = false;
-                    }
-                }
-            }
-
-        END:
-            if (!success && !isCanceled)
-            {
-                form.Invoke(handler, Messages.MSG_READ_SN_FAIL, error_msg);
-            }
-
-            AndroidDebugBridge.Instance.Stop();
-            CleanUpAdbProcess();
-        }
-
-     
-       
-
-
-        /// <summary>
-        /// 读取IMEI
-        /// </summary>
-        /// <param name="o"></param>
-        public void StartReadWifiAddress(object o)
-        {
-            form.Invoke(handler, Messages.MSG_READ_SN_START, null);
-            bool success = true;
-            string error_msg = null;
-            if (!StartAdbProcess())
-            {
-                error_msg = "adb进程启动失败";
-                success = false;
-            }
-            if (isCanceled)
-            {
-                goto END;
-            }
-            try
-            {
-                AndroidDebugBridge.Initialize(true);
-                AndroidDebugBridge.CreateBridge();
-                AndroidDebugBridge.Instance.Start();
-            }
-
-            catch (Exception)
-            {
-                error_msg = "adb服务启动失败";
-                success = false;
-            }
-            if (isCanceled)
-            {
-                goto END;
-            }
-            if (success)
-            {
-                form.Invoke(handler, Messages.MSG_READ_SN_STATE_CHANGE, "正在检查设备...");
-                int deviceCount = GetDeviceCount();
-
-
-                if (isCanceled)
-                {
-                    goto END;
-                }
-                if (deviceCount == 0)
-                {
-                    //无设备
-                    error_msg = "未找到adb设备，确保设备已连接并请重试";
-                    success = false;
-                }
-                else if (deviceCount > 1)
-                {
-                    //太多设备
-                    error_msg = "无法对大于1台设备进行烧录，请拔除多余的设备";
-                    success = false;
-
-                }
-                else
-                {
-                    form.Invoke(handler, Messages.MSG_READ_SN_STATE_CHANGE, "正在读取序列号...");
-                    string cmdResult = null;
-                    string snRead = ExcuteSWVersionReadCmd(out cmdResult);
-
-                    if (!string.IsNullOrEmpty(snRead))
-                    {
-                        form.Invoke(handler, Messages.MSG_READ_SN_SUCCESS, snRead);
-                    }
-                    else
-                    {
-                        error_msg = "序列号读取失败，序列号可能未烧写";
-                        success = false;
-                    }
-                }
-            }
-
-        END:
-            if (!success && !isCanceled)
-            {
-                form.Invoke(handler, Messages.MSG_READ_SN_FAIL, error_msg);
-            }
-
-            AndroidDebugBridge.Instance.Stop();
-            CleanUpAdbProcess();
-        }
-
-
-
-
         public void StartExcuteReadCmd(object o)
         {
             List<int> cmds = (List<int>)o;
@@ -279,7 +103,7 @@ namespace Common
             {
                 return;
             }
-            form.Invoke(handler, Messages.MSG_READ_SN_START, null);
+            form.Invoke(handler, Messages.MSG_READ_START, null);
 
 
 
@@ -312,7 +136,7 @@ namespace Common
             }
             if (success)
             {
-                form.Invoke(handler, Messages.MSG_READ_SN_STATE_CHANGE, "正在检查设备...");
+                form.Invoke(handler, Messages.MSG_READ_STATE_CHANGE, "正在检查设备...");
                 int deviceCount = GetDeviceCount();
 
 
@@ -335,7 +159,7 @@ namespace Common
                 }
                 else
                 {
-                    form.Invoke(handler, Messages.MSG_READ_SN_STATE_CHANGE, "正在读取序列号...");
+                    form.Invoke(handler, Messages.MSG_READ_STATE_CHANGE, "正在读取序列号...");
                     string cmdResult = null;
                     Dictionary<int, string> results = new Dictionary<int, string>();
                     foreach (int cmd in cmds)
@@ -368,27 +192,129 @@ namespace Common
 
                     }
 
-                    if (true)
-                    {
-                        form.Invoke(handler, Messages.MSG_READ_SN_SUCCESS, results);
-                    }
-                    else
-                    {
-                        error_msg = "序列号读取失败，序列号可能未烧写";
-                        success = false;
-                    }
+
+                    form.Invoke(handler, Messages.MSG_READ_SUCCESS, results);
+
+
                 }
             }
 
         END:
             if (!success && !isCanceled)
             {
-                form.Invoke(handler, Messages.MSG_READ_SN_FAIL, error_msg);
+                form.Invoke(handler, Messages.MSG_READ_FAIL, error_msg);
             }
 
             AndroidDebugBridge.Instance.Stop();
             CleanUpAdbProcess();
 
+        }
+
+
+        public void StartExcuteWriteCmd(object o)
+        {
+            List<KeyValuePair<int, string>> cmds = (List<KeyValuePair<int, string>>)o;
+            if (cmds == null || cmds.Count == 0)
+            {
+                return;
+            }
+            form.Invoke(handler, Messages.MSG_WRITE_START, null);
+
+            bool success = true;
+            string error_msg = null;
+            if (!StartAdbProcess())
+            {
+                error_msg = "adb进程启动失败";
+                success = false;
+            }
+            if (isCanceled)
+            {
+                goto END;
+            }
+            try
+            {
+                AndroidDebugBridge.Initialize(true);
+                AndroidDebugBridge.CreateBridge();
+                AndroidDebugBridge.Instance.Start();
+            }
+
+            catch (Exception)
+            {
+                error_msg = "adb服务启动失败";
+                success = false;
+            }
+            if (isCanceled)
+            {
+                goto END;
+            }
+            if (success)
+            {
+                form.Invoke(handler, Messages.MSG_WRITE_STATE_CHANGE, "正在检查设备...");
+                int deviceCount = GetDeviceCount();
+
+
+                if (isCanceled)
+                {
+                    goto END;
+                }
+                if (deviceCount == 0)
+                {
+                    //无设备
+                    error_msg = "未找到adb设备，确保设备已连接并请重试";
+                    success = false;
+                }
+                else if (deviceCount > 1)
+                {
+                    //太多设备
+                    error_msg = "无法对大于1台设备进行烧录，请拔除多余的设备";
+                    success = false;
+
+                }
+                else
+                {
+                    form.Invoke(handler, Messages.MSG_WRITE_STATE_CHANGE, "正在读取序列号...");
+                    string cmdResult = null;
+                    Dictionary<int, string> results = new Dictionary<int, string>();
+                    foreach (KeyValuePair<int,string> item in cmds)
+                    {
+
+                        int cmd = item.Key;
+                        string value = item.Value;
+                        switch (cmd)
+                        {
+                            case CodeType.TYPE_SN:
+                                ExcuteSNWriteCmd(out cmdResult,value);
+                                break;
+                            case CodeType.TYPE_IMEI:
+                                ExcuteIMEIWriteCmd(out cmdResult, value);
+                                break;
+                            case CodeType.TYPE_WIFI_MAC:
+                                ExcuteWifiAddressWriteCmd(out cmdResult, value);
+                                break;
+                            case CodeType.TYPE_BT_MAC:
+                                ExcuteBtAddressWriteCmd(out cmdResult, value);
+                                break;
+                            default:
+                                break;
+                        }
+
+                    }
+
+
+                    form.Invoke(handler, Messages.MSG_WRITE_SUCCESS, results);
+
+
+                }
+            }
+
+        END:
+            if (!success && !isCanceled)
+            {
+                form.Invoke(handler, Messages.MSG_WRITE_FAIL, error_msg);
+            }
+
+            AndroidDebugBridge.Instance.Stop();
+            CleanUpAdbProcess();
         }
 
 
@@ -431,7 +357,7 @@ namespace Common
                 {
                     if (result.Contains("0"))
                     {
-                        imei = receiver.ResultLines[0] ;
+                        imei = receiver.ResultLines[0];
                     }
                 }
 
@@ -448,8 +374,60 @@ namespace Common
 
         }
 
+        private bool ExcuteIMEIWriteCmd(out string error,string imei)
+        {
+            CommandResultReceiver receiver = new CommandResultReceiver();
+            receiver.TrimLines = true;
+            error = null;
+            bool success;
+            for (int i = 0; i <= 10; i++)
+            {
+                if (isCanceled)
+                {
+                    error = null;
+                    return false;
+                }
+                success = true;
+                try
+                {
+                    AdbHelper.Instance.GetDevices(AndroidDebugBridge.SocketAddress)[0].ExecuteShellCommand("tcmd-subcase.sh update-mrd-imei "+imei, receiver);
+                }
+                catch (Exception)
+                {
+                    success = false;
+                    Thread.Sleep(1000);
+                }
+
+                if (success)
+                {
+                    break;
+                }
+
+            }
+
+            if (receiver.ResultLines != null && receiver.ResultLines.Length > 0)
+            {
+                string result = receiver.ResultLines[receiver.ResultLines.Length - 1];
+               
+                if (result.Contains("ret"))
+                {
+                    if (result.Contains("0"))
+                    {
+                        return true;
+                    }
+                }
 
 
+                return false;
+
+            }
+
+            else
+            {
+                return false;
+            }
+
+        }
 
         private string ExcuteWifiAddressReadCmd(out string error)
         {
@@ -505,7 +483,60 @@ namespace Common
 
         }
 
+        private bool ExcuteWifiAddressWriteCmd(out string error, string mac)
+        {
+            CommandResultReceiver receiver = new CommandResultReceiver();
+            receiver.TrimLines = true;
+            error = null;
+            bool success;
+            for (int i = 0; i <= 10; i++)
+            {
+                if (isCanceled)
+                {
+                    error = null;
+                    return false;
+                }
+                success = true;
+                try
+                {
+                    AdbHelper.Instance.GetDevices(AndroidDebugBridge.SocketAddress)[0].ExecuteShellCommand("tcmd-subcase.sh wifi-set-mac " + mac, receiver);
+                }
+                catch (Exception)
+                {
+                    success = false;
+                    Thread.Sleep(1000);
+                }
 
+                if (success)
+                {
+                    break;
+                }
+
+            }
+
+            if (receiver.ResultLines != null && receiver.ResultLines.Length > 0)
+            {
+                string result = receiver.ResultLines[receiver.ResultLines.Length - 1];
+
+                if (result.Contains("ret"))
+                {
+                    if (result.Contains("0"))
+                    {
+                        return true;
+                    }
+                }
+
+
+                return false;
+
+            }
+
+            else
+            {
+                return false;
+            }
+
+        }
 
         private string ExcuteBtAddressReadCmd(out string error)
         {
@@ -539,7 +570,7 @@ namespace Common
 
             if (receiver.ResultLines != null && receiver.ResultLines.Length > 0)
             {
-                string result = receiver.ResultLines[receiver.ResultLines.Length-1];
+                string result = receiver.ResultLines[receiver.ResultLines.Length - 1];
                 string bt = null;
                 if (result.Contains("ret"))
                 {
@@ -548,7 +579,7 @@ namespace Common
                         bt = receiver.ResultLines[0].Replace(":", "").ToUpper(); ;
                     }
                 }
-      
+
                 error = null;
                 return bt;
 
@@ -562,7 +593,60 @@ namespace Common
 
         }
 
+        private bool ExcuteBtAddressWriteCmd(out string error, string mac)
+        {
+            CommandResultReceiver receiver = new CommandResultReceiver();
+            receiver.TrimLines = true;
+            error = null;
+            bool success;
+            for (int i = 0; i <= 10; i++)
+            {
+                if (isCanceled)
+                {
+                    error = null;
+                    return false;
+                }
+                success = true;
+                try
+                {
+                    AdbHelper.Instance.GetDevices(AndroidDebugBridge.SocketAddress)[0].ExecuteShellCommand("tcmd-subcase.sh bt-set-mac " + mac, receiver);
+                }
+                catch (Exception)
+                {
+                    success = false;
+                    Thread.Sleep(1000);
+                }
 
+                if (success)
+                {
+                    break;
+                }
+
+            }
+
+            if (receiver.ResultLines != null && receiver.ResultLines.Length > 0)
+            {
+                string result = receiver.ResultLines[receiver.ResultLines.Length - 1];
+
+                if (result.Contains("ret"))
+                {
+                    if (result.Contains("0"))
+                    {
+                        return true;
+                    }
+                }
+
+
+                return false;
+
+            }
+
+            else
+            {
+                return false;
+            }
+
+        }
 
         private string ExcuteSNReadCmd(out string error)
         {
@@ -597,7 +681,7 @@ namespace Common
             if (receiver.ResultLines != null && receiver.ResultLines.Length > 1)
             {
 
-                string result = receiver.ResultLines[receiver.ResultLines.Length-1];
+                string result = receiver.ResultLines[receiver.ResultLines.Length - 1];
                 string sn = null;
                 if (result.Contains("ret"))
                 {
@@ -619,7 +703,60 @@ namespace Common
 
         }
 
+        private bool ExcuteSNWriteCmd(out string error, string sn)
+        {
+            CommandResultReceiver receiver = new CommandResultReceiver();
+            receiver.TrimLines = true;
+            error = null;
+            bool success;
+            for (int i = 0; i <= 10; i++)
+            {
+                if (isCanceled)
+                {
+                    error = null;
+                    return false;
+                }
+                success = true;
+                try
+                {
+                    AdbHelper.Instance.GetDevices(AndroidDebugBridge.SocketAddress)[0].ExecuteShellCommand("tcmd-subcase.sh update-mrd-sn " + sn, receiver);
+                }
+                catch (Exception)
+                {
+                    success = false;
+                    Thread.Sleep(1000);
+                }
 
+                if (success)
+                {
+                    break;
+                }
+
+            }
+
+            if (receiver.ResultLines != null && receiver.ResultLines.Length > 0)
+            {
+                string result = receiver.ResultLines[receiver.ResultLines.Length - 1];
+
+                if (result.Contains("ret"))
+                {
+                    if (result.Contains("0"))
+                    {
+                        return true;
+                    }
+                }
+
+
+                return false;
+
+            }
+
+            else
+            {
+                return false;
+            }
+
+        }
 
         private string ExcuteSWVersionReadCmd(out string error)
         {
@@ -703,7 +840,7 @@ namespace Common
             return count;
         }
 
-        
+
     }
 
 

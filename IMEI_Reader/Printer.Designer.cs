@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Printer));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.checkBoxAutoPrint = new System.Windows.Forms.CheckBox();
             this.label7 = new System.Windows.Forms.Label();
             this.textBoxPrintCount = new System.Windows.Forms.TextBox();
             this.linkLabelPrinterConfig = new System.Windows.Forms.LinkLabel();
@@ -48,14 +49,13 @@
             this.panelProgress = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.buttonCopy = new System.Windows.Forms.Button();
+            this.buttonPrint = new System.Windows.Forms.Button();
             this.labelMsg = new System.Windows.Forms.Label();
             this.textBoxSN = new System.Windows.Forms.TextBox();
             this.textBoxIMEI = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.buttonRefresh = new System.Windows.Forms.Button();
-            this.checkBoxAutoPrint = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.panelProgress.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -80,7 +80,7 @@
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.checkBoxAutoRead);
             this.groupBox1.Controls.Add(this.panelProgress);
-            this.groupBox1.Controls.Add(this.buttonCopy);
+            this.groupBox1.Controls.Add(this.buttonPrint);
             this.groupBox1.Controls.Add(this.labelMsg);
             this.groupBox1.Controls.Add(this.textBoxSN);
             this.groupBox1.Controls.Add(this.textBoxIMEI);
@@ -93,6 +93,19 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "打印项";
+            // 
+            // checkBoxAutoPrint
+            // 
+            this.checkBoxAutoPrint.AutoSize = true;
+            this.checkBoxAutoPrint.Checked = true;
+            this.checkBoxAutoPrint.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxAutoPrint.Location = new System.Drawing.Point(133, 388);
+            this.checkBoxAutoPrint.Name = "checkBoxAutoPrint";
+            this.checkBoxAutoPrint.Size = new System.Drawing.Size(72, 16);
+            this.checkBoxAutoPrint.TabIndex = 22;
+            this.checkBoxAutoPrint.Text = "自动打印";
+            this.checkBoxAutoPrint.UseVisualStyleBackColor = true;
+            this.checkBoxAutoPrint.CheckedChanged += new System.EventHandler(this.checkBoxAutoPrint_CheckedChanged);
             // 
             // label7
             // 
@@ -178,20 +191,20 @@
             // 
             this.textBoxSwVersion.BackColor = System.Drawing.Color.White;
             this.textBoxSwVersion.Font = new System.Drawing.Font("黑体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textBoxSwVersion.Location = new System.Drawing.Point(108, 266);
+            this.textBoxSwVersion.Location = new System.Drawing.Point(76, 266);
             this.textBoxSwVersion.Name = "textBoxSwVersion";
             this.textBoxSwVersion.ReadOnly = true;
-            this.textBoxSwVersion.Size = new System.Drawing.Size(339, 30);
+            this.textBoxSwVersion.Size = new System.Drawing.Size(371, 30);
             this.textBoxSwVersion.TabIndex = 16;
             this.textBoxSwVersion.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("黑体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label6.Location = new System.Drawing.Point(19, 269);
+            this.label6.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label6.Location = new System.Drawing.Point(23, 278);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(79, 20);
+            this.label6.Size = new System.Drawing.Size(47, 12);
             this.label6.TabIndex = 15;
             this.label6.Text = "版本号:";
             // 
@@ -199,20 +212,20 @@
             // 
             this.textBoxBt.BackColor = System.Drawing.Color.White;
             this.textBoxBt.Font = new System.Drawing.Font("黑体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textBoxBt.Location = new System.Drawing.Point(108, 211);
+            this.textBoxBt.Location = new System.Drawing.Point(76, 211);
             this.textBoxBt.Name = "textBoxBt";
             this.textBoxBt.ReadOnly = true;
-            this.textBoxBt.Size = new System.Drawing.Size(339, 30);
+            this.textBoxBt.Size = new System.Drawing.Size(371, 30);
             this.textBoxBt.TabIndex = 14;
             this.textBoxBt.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("黑体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label5.Location = new System.Drawing.Point(3, 214);
+            this.label5.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label5.Location = new System.Drawing.Point(11, 223);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(99, 20);
+            this.label5.Size = new System.Drawing.Size(59, 12);
             this.label5.TabIndex = 13;
             this.label5.Text = "蓝牙地址:";
             // 
@@ -220,20 +233,20 @@
             // 
             this.textBoxWifi.BackColor = System.Drawing.Color.White;
             this.textBoxWifi.Font = new System.Drawing.Font("黑体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textBoxWifi.Location = new System.Drawing.Point(108, 145);
+            this.textBoxWifi.Location = new System.Drawing.Point(76, 145);
             this.textBoxWifi.Name = "textBoxWifi";
             this.textBoxWifi.ReadOnly = true;
-            this.textBoxWifi.Size = new System.Drawing.Size(339, 30);
+            this.textBoxWifi.Size = new System.Drawing.Size(371, 30);
             this.textBoxWifi.TabIndex = 12;
             this.textBoxWifi.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("黑体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label4.Location = new System.Drawing.Point(3, 148);
+            this.label4.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label4.Location = new System.Drawing.Point(11, 163);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(99, 20);
+            this.label4.Size = new System.Drawing.Size(59, 12);
             this.label4.TabIndex = 11;
             this.label4.Text = "WIFI地址:";
             // 
@@ -279,17 +292,17 @@
             this.pictureBox1.TabIndex = 9;
             this.pictureBox1.TabStop = false;
             // 
-            // buttonCopy
+            // buttonPrint
             // 
-            this.buttonCopy.Enabled = false;
-            this.buttonCopy.Font = new System.Drawing.Font("黑体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.buttonCopy.Location = new System.Drawing.Point(343, 361);
-            this.buttonCopy.Name = "buttonCopy";
-            this.buttonCopy.Size = new System.Drawing.Size(104, 43);
-            this.buttonCopy.TabIndex = 3;
-            this.buttonCopy.Text = "打印";
-            this.buttonCopy.UseVisualStyleBackColor = true;
-            this.buttonCopy.Click += new System.EventHandler(this.buttonCopy_Click);
+            this.buttonPrint.Enabled = false;
+            this.buttonPrint.Font = new System.Drawing.Font("黑体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.buttonPrint.Location = new System.Drawing.Point(343, 361);
+            this.buttonPrint.Name = "buttonPrint";
+            this.buttonPrint.Size = new System.Drawing.Size(104, 43);
+            this.buttonPrint.TabIndex = 3;
+            this.buttonPrint.Text = "打印";
+            this.buttonPrint.UseVisualStyleBackColor = true;
+            this.buttonPrint.Click += new System.EventHandler(this.buttonPrint_Click);
             // 
             // labelMsg
             // 
@@ -307,10 +320,10 @@
             this.textBoxSN.BackColor = System.Drawing.Color.White;
             this.textBoxSN.Enabled = false;
             this.textBoxSN.Font = new System.Drawing.Font("黑体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textBoxSN.Location = new System.Drawing.Point(108, 26);
+            this.textBoxSN.Location = new System.Drawing.Point(76, 26);
             this.textBoxSN.Name = "textBoxSN";
             this.textBoxSN.ReadOnly = true;
-            this.textBoxSN.Size = new System.Drawing.Size(339, 30);
+            this.textBoxSN.Size = new System.Drawing.Size(371, 30);
             this.textBoxSN.TabIndex = 5;
             this.textBoxSN.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
@@ -318,30 +331,30 @@
             // 
             this.textBoxIMEI.BackColor = System.Drawing.Color.White;
             this.textBoxIMEI.Font = new System.Drawing.Font("黑体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textBoxIMEI.Location = new System.Drawing.Point(108, 89);
+            this.textBoxIMEI.Location = new System.Drawing.Point(76, 89);
             this.textBoxIMEI.Name = "textBoxIMEI";
             this.textBoxIMEI.ReadOnly = true;
-            this.textBoxIMEI.Size = new System.Drawing.Size(339, 30);
+            this.textBoxIMEI.Size = new System.Drawing.Size(371, 30);
             this.textBoxIMEI.TabIndex = 5;
             this.textBoxIMEI.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("黑体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label2.Location = new System.Drawing.Point(49, 29);
+            this.label2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label2.Location = new System.Drawing.Point(41, 36);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(49, 20);
+            this.label2.Size = new System.Drawing.Size(29, 12);
             this.label2.TabIndex = 2;
             this.label2.Text = "S/N:";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("黑体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label1.Location = new System.Drawing.Point(39, 92);
+            this.label1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label1.Location = new System.Drawing.Point(35, 99);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(59, 20);
+            this.label1.Size = new System.Drawing.Size(35, 12);
             this.label1.TabIndex = 1;
             this.label1.Text = "IMEI:";
             // 
@@ -357,20 +370,7 @@
             this.buttonRefresh.UseVisualStyleBackColor = true;
             this.buttonRefresh.Click += new System.EventHandler(this.buttonRefresh_Click);
             // 
-            // checkBoxAutoPrint
-            // 
-            this.checkBoxAutoPrint.AutoSize = true;
-            this.checkBoxAutoPrint.Checked = true;
-            this.checkBoxAutoPrint.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxAutoPrint.Location = new System.Drawing.Point(133, 388);
-            this.checkBoxAutoPrint.Name = "checkBoxAutoPrint";
-            this.checkBoxAutoPrint.Size = new System.Drawing.Size(72, 16);
-            this.checkBoxAutoPrint.TabIndex = 22;
-            this.checkBoxAutoPrint.Text = "自动打印";
-            this.checkBoxAutoPrint.UseVisualStyleBackColor = true;
-            this.checkBoxAutoPrint.CheckedChanged += new System.EventHandler(this.checkBoxAutoPrint_CheckedChanged);
-            // 
-            // Main
+            // Printer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -378,7 +378,7 @@
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
-            this.Name = "Main";
+            this.Name = "Printer";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "条码打印程序";
             this.Load += new System.EventHandler(this.Main_Load);
@@ -401,7 +401,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button buttonRefresh;
         private System.Windows.Forms.Label labelMsg;
-        private System.Windows.Forms.Button buttonCopy;
+        private System.Windows.Forms.Button buttonPrint;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Panel panelProgress;
         private System.Windows.Forms.Label label3;

@@ -260,6 +260,7 @@
             this.buttonWrite.TabIndex = 1;
             this.buttonWrite.Text = "烧写";
             this.buttonWrite.UseVisualStyleBackColor = true;
+            this.buttonWrite.Click += new System.EventHandler(this.buttonWrite_Click);
             // 
             // labelMsg
             // 

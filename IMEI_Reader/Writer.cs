@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using Common;
+using System.Threading;
 
 namespace IMEI_Reader
 {
@@ -34,8 +35,38 @@ namespace IMEI_Reader
 
                     this.UpdateUI();
                     break;
+                case Messages.MSG_WRITE_START:
 
-               
+
+                    checkBoxSN.Enabled = false;
+                    checkBoxIMEI.Enabled = false;
+                    checkBoxWifi.Enabled = false;
+                    checkBoxBt.Enabled = false;
+                    buttonWrite.Enabled = false;
+
+
+                    break;
+                case Messages.MSG_WRITE_STATE_CHANGE:
+
+                    break;
+                case Messages.MSG_WRITE_SUCCESS:
+                    checkBoxSN.Enabled = true;
+                    checkBoxIMEI.Enabled = true;
+                    checkBoxWifi.Enabled = true;
+                    checkBoxBt.Enabled = true;
+                    buttonWrite.Enabled = true;
+                    MessageBox.Show("烧写成功！", "完成", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    break;
+                case Messages.MSG_WRITE_FAIL:
+                    
+                    checkBoxSN.Enabled = true;
+                    checkBoxIMEI.Enabled = true;
+                    checkBoxWifi.Enabled = true;
+                    checkBoxBt.Enabled = true;
+                    buttonWrite.Enabled = true;
+                    errorMsg = obj.ToString();
+                    MessageBox.Show(errorMsg, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
                 default:
                     break;
             }
@@ -91,7 +122,7 @@ namespace IMEI_Reader
                 }
                 else
                 {
-                    Write();
+                    CheckAndStartWrite();
                 }
 
 
@@ -112,7 +143,7 @@ namespace IMEI_Reader
                 }
                 else
                 {
-                    Write();
+                    CheckAndStartWrite();
                 }
             }
         }
@@ -127,7 +158,7 @@ namespace IMEI_Reader
                 }
                 else
                 {
-                    Write();
+                    CheckAndStartWrite();
                 }
             }
         }
@@ -136,15 +167,92 @@ namespace IMEI_Reader
         {
             if (e.KeyCode == Keys.Enter)
             {
-                Write();
+                CheckAndStartWrite();
             }
         }
 
 
 
-        private void Write()
+        private void CheckAndStartWrite()
         {
-            MessageBox.Show("write");
+            List<KeyValuePair<int, string>> codes = new List<KeyValuePair<int, string>>();
+            int count = Settings.Default.PrintCount;
+            if (checkBoxSN.Checked)
+            {
+                if (string.IsNullOrEmpty(textBoxSN.Text.Trim()))
+                {
+                    goto ERROR;
+                }
+                else
+                {
+                    for (int i = 0; i < count; i++)
+                    {
+                        codes.Add(new KeyValuePair<int, string>(CodeType.TYPE_SN, textBoxSN.Text.Trim()));
+                    }
+
+                }
+            }
+            if (checkBoxIMEI.Checked)
+            {
+                if (string.IsNullOrEmpty(textBoxIMEI.Text.Trim()))
+                {
+                    goto ERROR;
+                }
+                else
+                {
+                    for (int i = 0; i < count; i++)
+                    {
+                        codes.Add(new KeyValuePair<int, string>(CodeType.TYPE_IMEI, textBoxIMEI.Text.Trim()));
+                    }
+                }
+            }
+
+            if (checkBoxWifi.Checked)
+            {
+                if (string.IsNullOrEmpty(textBoxWifi.Text.Trim()))
+                {
+                    goto ERROR;
+                }
+                else
+                {
+                    for (int i = 0; i < count; i++)
+                    {
+                        codes.Add(new KeyValuePair<int, string>(CodeType.TYPE_WIFI_MAC, textBoxWifi.Text.Trim()));
+                    }
+                }
+            }
+
+            if (checkBoxBt.Checked)
+            {
+                if (string.IsNullOrEmpty(textBoxBt.Text.Trim()))
+                {
+                    goto ERROR;
+                }
+                else
+                {
+                    for (int i = 0; i < count; i++)
+                    {
+                        codes.Add(new KeyValuePair<int, string>(CodeType.TYPE_BT_MAC, textBoxBt.Text.Trim()));
+                    }
+                }
+            }
+
+           
+            Write(codes);
+            return;
+
+        ERROR:
+            {
+                MessageBox.Show("请确保选择的项中包含有效的数据！", "无效的数据", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
+        private void Write(List<KeyValuePair<int, string>> codes)
+        {
+            AdbOperator ao = new AdbOperator(mHandler, this);
+            Thread thread = new Thread(new ParameterizedThreadStart(ao.StartExcuteWriteCmd));
+            thread.Start(codes);
         }
 
 
@@ -199,6 +307,11 @@ namespace IMEI_Reader
         private void groupBox1_Enter(object sender, EventArgs e)
         {
 
+        }
+
+        private void buttonWrite_Click(object sender, EventArgs e)
+        {
+            this.CheckAndStartWrite();
         }
 
  

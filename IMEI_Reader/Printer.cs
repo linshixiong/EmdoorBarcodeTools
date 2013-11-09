@@ -68,7 +68,7 @@ namespace IMEI_Reader
                     this.UpdateUI();
                     break;
 
-                case Messages.MSG_READ_SN_START:
+                case Messages.MSG_READ_START:
 
                     panelProgress.Visible = true;
                     buttonRefresh.Enabled = false;
@@ -80,10 +80,10 @@ namespace IMEI_Reader
                     checkBoxSwVersion.Enabled = false;
                   
                     break;
-                case Messages.MSG_READ_SN_STATE_CHANGE:
+                case Messages.MSG_READ_STATE_CHANGE:
                    
                     break;
-                case Messages.MSG_READ_SN_SUCCESS:
+                case Messages.MSG_READ_SUCCESS:
 
                     Dictionary<int, string> result = (Dictionary<int,string>)obj;
 
@@ -117,8 +117,15 @@ namespace IMEI_Reader
                     checkBoxWifi.Enabled = true;
                     checkBoxBt.Enabled = true;
                     checkBoxSwVersion.Enabled = true;
+
+                    if (checkBoxAutoPrint.Checked)
+                    {
+
+                        CheckAndStartPrint();
+                    }
+
                     break;
-                case Messages.MSG_READ_SN_FAIL:
+                case Messages.MSG_READ_FAIL:
                     panelProgress.Visible = false;
                     buttonRefresh.Enabled = true;
                     checkBoxSN.Enabled = true;
@@ -232,10 +239,8 @@ namespace IMEI_Reader
         }
 
 
-
-        private void buttonCopy_Click(object sender, EventArgs e)
+        private void CheckAndStartPrint()
         {
-
             List<KeyValuePair<int, string>> codes = new List<KeyValuePair<int, string>>();
             int count = Settings.Default.PrintCount;
             if (checkBoxSN.Checked)
@@ -250,7 +255,7 @@ namespace IMEI_Reader
                     {
                         codes.Add(new KeyValuePair<int, string>(CodeType.TYPE_SN, textBoxSN.Text.Trim()));
                     }
-                  
+
                 }
             }
             if (checkBoxIMEI.Checked)
@@ -300,7 +305,7 @@ namespace IMEI_Reader
 
             if (checkBoxSwVersion.Checked)
             {
-                if (string.IsNullOrEmpty( textBoxSwVersion.Text.Trim()))
+                if (string.IsNullOrEmpty(textBoxSwVersion.Text.Trim()))
                 {
                     goto ERROR;
                 }
@@ -321,10 +326,16 @@ namespace IMEI_Reader
             print(codes);
             return;
 
-            ERROR:
+        ERROR:
             {
-                MessageBox.Show("请确保选择的项中包含有效的数据！","无效的数据",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                MessageBox.Show("请确保选择的项中包含有效的数据！", "无效的数据", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void buttonPrint_Click(object sender, EventArgs e)
+        {
+
+            CheckAndStartPrint();
 
         }
 
@@ -337,12 +348,12 @@ namespace IMEI_Reader
 
             if (string.IsNullOrEmpty(textBox.Text.Trim()) || string.IsNullOrEmpty(textBox.Text.Trim()))
             {
-                buttonCopy.Enabled = false;
+                buttonPrint.Enabled = false;
 
             }
             else
             {
-                buttonCopy.Enabled = true;
+                buttonPrint.Enabled = true;
             }
         }
 
@@ -401,6 +412,8 @@ namespace IMEI_Reader
             PrinterConfig config = new PrinterConfig();
             config.ShowDialog();
         }
+
+
 
 
 
