@@ -53,15 +53,28 @@ namespace Common
             {
                 if (Util.IsProcessOpen("adb"))
                 {
-                    CleanUpAdbProcess();
+                    result = true;
                 }
-
-                Process p = new Process();
-                p.StartInfo.UseShellExecute = false;
-                p.StartInfo.CreateNoWindow = true;
-                p.StartInfo.FileName = adbFilePath;
-                p.StartInfo.Arguments = "devices";
-                p.Start();
+                else
+                {
+                    Process p = new Process();
+                    p.StartInfo.UseShellExecute = false;
+                    p.StartInfo.CreateNoWindow = true;
+                    p.StartInfo.FileName = adbFilePath;
+                    p.StartInfo.Arguments = "devices";
+                    p.Start();
+                    try
+                    {
+                        AndroidDebugBridge.Initialize(true);
+                        AndroidDebugBridge.CreateBridge();
+                        AndroidDebugBridge.Instance.Start();
+                    }
+                    catch (Exception)
+                    {
+                        CleanUpAdbProcess();
+                        result = false;
+                    }
+                }
 
 
             }
@@ -73,17 +86,13 @@ namespace Common
 
         }
 
-
-        public static void CleanUpAdbProcess(object o)
-        {
-            CleanUpAdbProcess();
-        }
-
         /// <summary>
         /// 结束adb进程
         /// </summary>
         public static void CleanUpAdbProcess()
         {
+            AndroidDebugBridge.Instance.Stop();
+
             Process[] procs = Process.GetProcessesByName("adb");
             foreach (var item in procs)
             {
@@ -98,6 +107,8 @@ namespace Common
 
         public void StartExcuteReadCmd(object o)
         {
+            DateTime dtStart = DateTime.Now;
+
             List<int> cmds = (List<int>)o;
             if (cmds == null || cmds.Count == 0)
             {
@@ -109,6 +120,7 @@ namespace Common
 
             bool success = true;
             string error_msg = null;
+
             if (!StartAdbProcess())
             {
                 error_msg = "adb进程启动失败";
@@ -118,8 +130,9 @@ namespace Common
             {
                 goto END;
             }
+            /*
             try
-            {
+            {          
                 AndroidDebugBridge.Initialize(true);
                 AndroidDebugBridge.CreateBridge();
                 AndroidDebugBridge.Instance.Start();
@@ -129,7 +142,7 @@ namespace Common
             {
                 error_msg = "adb服务启动失败";
                 success = false;
-            }
+            }*/
             if (isCanceled)
             {
                 goto END;
@@ -194,8 +207,11 @@ namespace Common
 
 
                     form.Invoke(handler, Messages.MSG_READ_SUCCESS, results);
+                    DateTime dtStop = DateTime.Now;
 
+                    TimeSpan ts = dtStop - dtStart;
 
+                    Console.WriteLine("读取{0}项完成，耗时{1}毫秒", cmds.Count, ts.TotalMilliseconds);
                 }
             }
 
@@ -205,14 +221,15 @@ namespace Common
                 form.Invoke(handler, Messages.MSG_READ_FAIL, error_msg);
             }
 
-            AndroidDebugBridge.Instance.Stop();
-            CleanUpAdbProcess();
+            //AndroidDebugBridge.Instance.Stop();
+            //CleanUpAdbProcess();
 
         }
 
 
         public void StartExcuteWriteCmd(object o)
         {
+            DateTime dtStart = DateTime.Now;
             List<KeyValuePair<int, string>> cmds = (List<KeyValuePair<int, string>>)o;
             if (cmds == null || cmds.Count == 0)
             {
@@ -231,6 +248,7 @@ namespace Common
             {
                 goto END;
             }
+            /*
             try
             {
                 AndroidDebugBridge.Initialize(true);
@@ -242,7 +260,7 @@ namespace Common
             {
                 error_msg = "adb服务启动失败";
                 success = false;
-            }
+            }*/
             if (isCanceled)
             {
                 goto END;
@@ -275,7 +293,7 @@ namespace Common
                     form.Invoke(handler, Messages.MSG_WRITE_STATE_CHANGE, "正在读取序列号...");
                     string cmdResult = null;
                     Dictionary<int, string> results = new Dictionary<int, string>();
-                    foreach (KeyValuePair<int,string> item in cmds)
+                    foreach (KeyValuePair<int, string> item in cmds)
                     {
 
                         int cmd = item.Key;
@@ -283,7 +301,7 @@ namespace Common
                         switch (cmd)
                         {
                             case CodeType.TYPE_SN:
-                                ExcuteSNWriteCmd(out cmdResult,value);
+                                ExcuteSNWriteCmd(out cmdResult, value);
                                 break;
                             case CodeType.TYPE_IMEI:
                                 ExcuteIMEIWriteCmd(out cmdResult, value);
@@ -302,7 +320,11 @@ namespace Common
 
 
                     form.Invoke(handler, Messages.MSG_WRITE_SUCCESS, results);
+                    DateTime dtStop = DateTime.Now;
 
+                    TimeSpan ts = dtStop - dtStart;
+
+                    Console.WriteLine("写入{0}项完成，耗时{1}毫秒", cmds.Count, ts.TotalMilliseconds);
 
                 }
             }
@@ -313,8 +335,8 @@ namespace Common
                 form.Invoke(handler, Messages.MSG_WRITE_FAIL, error_msg);
             }
 
-            AndroidDebugBridge.Instance.Stop();
-            CleanUpAdbProcess();
+           // AndroidDebugBridge.Instance.Stop();
+           // CleanUpAdbProcess();
         }
 
 
@@ -374,7 +396,7 @@ namespace Common
 
         }
 
-        private bool ExcuteIMEIWriteCmd(out string error,string imei)
+        private bool ExcuteIMEIWriteCmd(out string error, string imei)
         {
             CommandResultReceiver receiver = new CommandResultReceiver();
             receiver.TrimLines = true;
@@ -390,7 +412,7 @@ namespace Common
                 success = true;
                 try
                 {
-                    AdbHelper.Instance.GetDevices(AndroidDebugBridge.SocketAddress)[0].ExecuteShellCommand("tcmd-subcase.sh update-mrd-imei "+imei, receiver);
+                    AdbHelper.Instance.GetDevices(AndroidDebugBridge.SocketAddress)[0].ExecuteShellCommand("tcmd-subcase.sh update-mrd-imei " + imei, receiver);
                 }
                 catch (Exception)
                 {
@@ -408,7 +430,7 @@ namespace Common
             if (receiver.ResultLines != null && receiver.ResultLines.Length > 0)
             {
                 string result = receiver.ResultLines[receiver.ResultLines.Length - 1];
-               
+
                 if (result.Contains("ret"))
                 {
                     if (result.Contains("0"))
@@ -811,6 +833,7 @@ namespace Common
 
         private int GetDeviceCount()
         {
+            DateTime dtStart = DateTime.Now;
             bool success;
             int count = 0;
             for (int i = 0; i <= 10; i++)
@@ -836,7 +859,9 @@ namespace Common
                 }
 
             }
-
+            DateTime dtStop = DateTime.Now;
+            TimeSpan ts = dtStop - dtStart;
+            Console.WriteLine("读取设备数量耗时{0}毫秒",  ts.TotalMilliseconds);
             return count;
         }
 

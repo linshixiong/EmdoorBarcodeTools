@@ -37,7 +37,7 @@ namespace IMEI_Reader
                     break;
                 case Messages.MSG_WRITE_START:
 
-
+                    panelProgress.Visible = true;
                     checkBoxSN.Enabled = false;
                     checkBoxIMEI.Enabled = false;
                     checkBoxWifi.Enabled = false;
@@ -50,15 +50,16 @@ namespace IMEI_Reader
 
                     break;
                 case Messages.MSG_WRITE_SUCCESS:
+                    panelProgress.Visible = false;
                     checkBoxSN.Enabled = true;
                     checkBoxIMEI.Enabled = true;
                     checkBoxWifi.Enabled = true;
                     checkBoxBt.Enabled = true;
                     buttonWrite.Enabled = true;
-                    MessageBox.Show("烧写成功！", "完成", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    //MessageBox.Show("烧写成功！", "完成", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     break;
                 case Messages.MSG_WRITE_FAIL:
-                    
+                    panelProgress.Visible = false;
                     checkBoxSN.Enabled = true;
                     checkBoxIMEI.Enabled = true;
                     checkBoxWifi.Enabled = true;
@@ -79,7 +80,7 @@ namespace IMEI_Reader
             textBoxIMEI.Clear();
             textBoxWifi.Clear();
             textBoxBt.Clear();
-           
+
             if (deviceCount <= 0)
             {
                 labelMsg.Text = "请连接设备";
@@ -92,7 +93,7 @@ namespace IMEI_Reader
                 labelMsg.Text = "设备已连接";
                 labelMsg.ForeColor = Color.Green;
                 buttonWrite.Enabled = true;
-               
+
             }
             else
             {
@@ -133,7 +134,7 @@ namespace IMEI_Reader
         {
             if (e.KeyCode == Keys.Enter)
             {
-                 if (textBoxWifi.Enabled)
+                if (textBoxWifi.Enabled)
                 {
                     textBoxWifi.Focus();
                 }
@@ -185,10 +186,9 @@ namespace IMEI_Reader
                 }
                 else
                 {
-                    for (int i = 0; i < count; i++)
-                    {
-                        codes.Add(new KeyValuePair<int, string>(CodeType.TYPE_SN, textBoxSN.Text.Trim()));
-                    }
+
+                    codes.Add(new KeyValuePair<int, string>(CodeType.TYPE_SN, textBoxSN.Text.Trim()));
+
 
                 }
             }
@@ -200,10 +200,9 @@ namespace IMEI_Reader
                 }
                 else
                 {
-                    for (int i = 0; i < count; i++)
-                    {
-                        codes.Add(new KeyValuePair<int, string>(CodeType.TYPE_IMEI, textBoxIMEI.Text.Trim()));
-                    }
+
+                    codes.Add(new KeyValuePair<int, string>(CodeType.TYPE_IMEI, textBoxIMEI.Text.Trim()));
+
                 }
             }
 
@@ -215,10 +214,9 @@ namespace IMEI_Reader
                 }
                 else
                 {
-                    for (int i = 0; i < count; i++)
-                    {
-                        codes.Add(new KeyValuePair<int, string>(CodeType.TYPE_WIFI_MAC, textBoxWifi.Text.Trim()));
-                    }
+
+                    codes.Add(new KeyValuePair<int, string>(CodeType.TYPE_WIFI_MAC, textBoxWifi.Text.Trim()));
+
                 }
             }
 
@@ -230,14 +228,13 @@ namespace IMEI_Reader
                 }
                 else
                 {
-                    for (int i = 0; i < count; i++)
-                    {
-                        codes.Add(new KeyValuePair<int, string>(CodeType.TYPE_BT_MAC, textBoxBt.Text.Trim()));
-                    }
+
+                    codes.Add(new KeyValuePair<int, string>(CodeType.TYPE_BT_MAC, textBoxBt.Text.Trim()));
+
                 }
             }
 
-           
+
             Write(codes);
             return;
 
@@ -263,6 +260,9 @@ namespace IMEI_Reader
             textBoxSN.Enabled = checkBoxSN.Checked;
             textBoxSN.BackColor = checkBoxSN.Checked ? Color.White : System.Drawing.SystemColors.Control;
             linkLabelSN.Visible = checkBoxSN.Checked;
+
+            Settings.Default.WriteSNChecked = checkBoxSN.Checked;
+            Settings.Default.Save();
         }
 
         private void checkBoxIMEI_CheckedChanged(object sender, EventArgs e)
@@ -270,6 +270,8 @@ namespace IMEI_Reader
             textBoxIMEI.Enabled = checkBoxIMEI.Checked;
             textBoxIMEI.BackColor = checkBoxIMEI.Checked ? Color.White : System.Drawing.SystemColors.Control;
             linkLabelIMEI.Visible = checkBoxIMEI.Checked;
+            Settings.Default.WriteIMEIChecked = checkBoxIMEI.Checked;
+            Settings.Default.Save();
         }
 
         private void checkBoxWifi_CheckedChanged(object sender, EventArgs e)
@@ -277,6 +279,8 @@ namespace IMEI_Reader
             textBoxWifi.Enabled = checkBoxWifi.Checked;
             textBoxWifi.BackColor = checkBoxWifi.Checked ? Color.White : System.Drawing.SystemColors.Control;
             linkLabelWifi.Visible = checkBoxWifi.Checked;
+            Settings.Default.WriteWIFIChecked = checkBoxWifi.Checked;
+            Settings.Default.Save();
         }
 
         private void checkBoxBt_CheckedChanged(object sender, EventArgs e)
@@ -284,19 +288,21 @@ namespace IMEI_Reader
             textBoxBt.Enabled = checkBoxBt.Checked;
             textBoxBt.BackColor = checkBoxBt.Checked ? Color.White : System.Drawing.SystemColors.Control;
             linkLabelBt.Visible = checkBoxBt.Checked;
+            Settings.Default.WriteBTChecked = checkBoxBt.Checked;
+            Settings.Default.Save();
         }
 
         private void Writer_FormClosed(object sender, FormClosedEventArgs e)
         {
             detetor.RemoveUSBEventWatcher();
-
+            AdbOperator.CleanUpAdbProcess();
             this.Dispose();
             Environment.Exit(0);
         }
 
         private void linkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            int tag =Convert.ToInt32( ((LinkLabel)sender).Tag);
+            int tag = Convert.ToInt32(((LinkLabel)sender).Tag);
 
             WriterConfig config = new WriterConfig();
             config.Tag = tag;
@@ -314,6 +320,73 @@ namespace IMEI_Reader
             this.CheckAndStartWrite();
         }
 
- 
+        private void Writer_Load(object sender, EventArgs e)
+        {
+            checkBoxSN.Checked = Settings.Default.WriteSNChecked;
+            checkBoxIMEI.Checked = Settings.Default.WriteIMEIChecked;
+            checkBoxWifi.Checked = Settings.Default.WriteWIFIChecked;
+            checkBoxBt.Checked = Settings.Default.WriteBTChecked;
+        }
+
+        private void textBoxSN_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxSN_KeyPress(object sender, KeyPressEventArgs e)
+        {
+
+
+
+            if (e.KeyChar != '\b' && e.KeyChar != 22 && e.KeyChar != 3)
+            {
+
+                e.Handled = "0123456789ABCDEF".IndexOf(char.ToUpper(e.KeyChar)) < 0;
+
+
+            }
+        }
+
+        private void textBoxWifi_TextChanged(object sender, EventArgs e)
+        {
+            TextBox textBox = (TextBox)sender;
+
+            String text = textBox.Text.Trim().ToUpper().Replace(":", "").Replace("-", "");
+            if (text.Length > 12)
+            {
+                text = text.Substring(0, 12);
+            }
+            if (Util.IsHexString(text))
+            {
+                textBox.Text = text;
+            }
+            else
+            {
+                textBox.Clear();
+            }
+
+        }
+
+        private void textBoxWifi_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            TextBox textBox = (TextBox)sender;
+            if (e.KeyChar == '\b' || e.KeyChar == 22 || e.KeyChar == 3 || e.KeyChar == 24)
+            {
+                return;
+            }
+            else if (textBox.Text.Length >= 12)
+            {
+                e.Handled = true;
+            }
+            else
+            {
+
+                e.Handled = "0123456789ABCDEF".IndexOf(char.ToUpper(e.KeyChar)) < 0;
+
+
+            }
+        }
+
+
     }
 }

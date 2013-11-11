@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Writer));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.linkLabelBt = new System.Windows.Forms.LinkLabel();
             this.linkLabelWifi = new System.Windows.Forms.LinkLabel();
@@ -48,11 +49,17 @@
             this.textBoxSN = new System.Windows.Forms.TextBox();
             this.buttonWrite = new System.Windows.Forms.Button();
             this.labelMsg = new System.Windows.Forms.Label();
+            this.panelProgress = new System.Windows.Forms.Panel();
+            this.label5 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.groupBox1.SuspendLayout();
+            this.panelProgress.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.panelProgress);
             this.groupBox1.Controls.Add(this.linkLabelBt);
             this.groupBox1.Controls.Add(this.linkLabelWifi);
             this.groupBox1.Controls.Add(this.linkLabelIMEI);
@@ -222,23 +229,32 @@
             // 
             // textBoxBt
             // 
+            this.textBoxBt.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.textBoxBt.Location = new System.Drawing.Point(83, 203);
+            this.textBoxBt.MaxLength = 120;
             this.textBoxBt.Name = "textBoxBt";
             this.textBoxBt.Size = new System.Drawing.Size(260, 21);
             this.textBoxBt.TabIndex = 1;
+            this.textBoxBt.TextChanged += new System.EventHandler(this.textBoxWifi_TextChanged);
             this.textBoxBt.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxBt_KeyDown);
+            this.textBoxBt.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxWifi_KeyPress);
             // 
             // textBoxWifi
             // 
+            this.textBoxWifi.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.textBoxWifi.Location = new System.Drawing.Point(83, 144);
+            this.textBoxWifi.MaxLength = 120;
             this.textBoxWifi.Name = "textBoxWifi";
             this.textBoxWifi.Size = new System.Drawing.Size(260, 21);
             this.textBoxWifi.TabIndex = 1;
+            this.textBoxWifi.TextChanged += new System.EventHandler(this.textBoxWifi_TextChanged);
             this.textBoxWifi.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxWifi_KeyDown);
+            this.textBoxWifi.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxWifi_KeyPress);
             // 
             // textBoxIMEI
             // 
             this.textBoxIMEI.Location = new System.Drawing.Point(83, 89);
+            this.textBoxIMEI.MaxLength = 15;
             this.textBoxIMEI.Name = "textBoxIMEI";
             this.textBoxIMEI.Size = new System.Drawing.Size(260, 21);
             this.textBoxIMEI.TabIndex = 1;
@@ -246,11 +262,15 @@
             // 
             // textBoxSN
             // 
+            this.textBoxSN.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.textBoxSN.Location = new System.Drawing.Point(83, 29);
+            this.textBoxSN.MaxLength = 32;
             this.textBoxSN.Name = "textBoxSN";
             this.textBoxSN.Size = new System.Drawing.Size(260, 21);
             this.textBoxSN.TabIndex = 0;
+            this.textBoxSN.TextChanged += new System.EventHandler(this.textBoxSN_TextChanged);
             this.textBoxSN.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxSN_KeyDown);
+            this.textBoxSN.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxSN_KeyPress);
             // 
             // buttonWrite
             // 
@@ -271,6 +291,35 @@
             this.labelMsg.TabIndex = 2;
             this.labelMsg.Text = "label5";
             // 
+            // panelProgress
+            // 
+            this.panelProgress.Controls.Add(this.label5);
+            this.panelProgress.Controls.Add(this.pictureBox1);
+            this.panelProgress.Location = new System.Drawing.Point(212, 257);
+            this.panelProgress.Name = "panelProgress";
+            this.panelProgress.Size = new System.Drawing.Size(188, 39);
+            this.panelProgress.TabIndex = 11;
+            this.panelProgress.Visible = false;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(43, 14);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(71, 12);
+            this.label5.TabIndex = 10;
+            this.label5.Text = "正在写入...";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(5, 3);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(32, 32);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 9;
+            this.pictureBox1.TabStop = false;
+            // 
             // Writer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -281,9 +330,13 @@
             this.Controls.Add(this.groupBox1);
             this.Name = "Writer";
             this.Text = "串号烧录器";
+            this.Load += new System.EventHandler(this.Writer_Load);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Writer_FormClosed);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.panelProgress.ResumeLayout(false);
+            this.panelProgress.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -311,5 +364,8 @@
         private System.Windows.Forms.LinkLabel linkLabelWifi;
         private System.Windows.Forms.LinkLabel linkLabelIMEI;
         private System.Windows.Forms.LinkLabel linkLabelSN;
+        private System.Windows.Forms.Panel panelProgress;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

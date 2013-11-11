@@ -179,7 +179,7 @@ namespace IMEI_Reader
         private void Main_FormClosed(object sender, FormClosedEventArgs e)
         {
             detetor.RemoveUSBEventWatcher();
-
+            AdbOperator.CleanUpAdbProcess();
             this.Dispose();
             Environment.Exit(0);
         }
