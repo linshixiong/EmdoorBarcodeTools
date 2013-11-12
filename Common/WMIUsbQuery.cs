@@ -88,13 +88,8 @@ namespace Common
 
         public static int GetDeviceCount()
         {
-            string pid = "4E16";// Configurator.Instance.ReadConfig(Configurator.CONFIG_KEY_PID);
-            string pid2 = "4E4A";
-            string vid = "0BB4";// Configurator.Instance.ReadConfig(Configurator.CONFIG_KEY_VID);
-            string VIDPID = "'%VID[_]" + vid + "&PID[_]" + pid + "&MI[_]" + "05" + "%'";
-            string VIDPID2 = "'%VID[_]" + vid + "&PID[_]" + pid2 + "&MI[_]" + "05" + "%'";
-
-            ManagementObjectCollection PnPEntityCollection = new ManagementObjectSearcher("SELECT * FROM Win32_PnPEntity WHERE DeviceID LIKE " + VIDPID + " or DeviceID LIKE "+VIDPID2).Get();
+            string VIDPID = "'%VID[_]" + DeviceDetector.vid.ToString("X4") + "&PID[_]" + DeviceDetector.pid.ToString("X4") + "&MI[_]" +DeviceDetector.mi.ToString("D2")+"%'";
+            ManagementObjectCollection PnPEntityCollection = new ManagementObjectSearcher("SELECT * FROM Win32_PnPEntity WHERE DeviceID LIKE " + VIDPID ).Get();
             return PnPEntityCollection == null ? 0 : PnPEntityCollection.Count;
 
         }

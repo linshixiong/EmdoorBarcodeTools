@@ -48,7 +48,6 @@
             this.checkBoxAutoRead = new System.Windows.Forms.CheckBox();
             this.panelProgress = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.buttonPrint = new System.Windows.Forms.Button();
             this.labelMsg = new System.Windows.Forms.Label();
             this.textBoxSN = new System.Windows.Forms.TextBox();
@@ -56,6 +55,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.buttonRefresh = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.linkLabelUsbConfig = new System.Windows.Forms.LinkLabel();
             this.groupBox1.SuspendLayout();
             this.panelProgress.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -66,6 +67,7 @@
             this.groupBox1.Controls.Add(this.checkBoxAutoPrint);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.textBoxPrintCount);
+            this.groupBox1.Controls.Add(this.linkLabelUsbConfig);
             this.groupBox1.Controls.Add(this.linkLabelPrinterConfig);
             this.groupBox1.Controls.Add(this.checkBoxSwVersion);
             this.groupBox1.Controls.Add(this.checkBoxBt);
@@ -129,7 +131,7 @@
             // linkLabelPrinterConfig
             // 
             this.linkLabelPrinterConfig.AutoSize = true;
-            this.linkLabelPrinterConfig.Location = new System.Drawing.Point(382, 331);
+            this.linkLabelPrinterConfig.Location = new System.Drawing.Point(393, 314);
             this.linkLabelPrinterConfig.Name = "linkLabelPrinterConfig";
             this.linkLabelPrinterConfig.Size = new System.Drawing.Size(65, 12);
             this.linkLabelPrinterConfig.TabIndex = 19;
@@ -282,16 +284,6 @@
             this.label3.TabIndex = 10;
             this.label3.Text = "正在读取...";
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(5, 3);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 9;
-            this.pictureBox1.TabStop = false;
-            // 
             // buttonPrint
             // 
             this.buttonPrint.Enabled = false;
@@ -370,6 +362,27 @@
             this.buttonRefresh.UseVisualStyleBackColor = true;
             this.buttonRefresh.Click += new System.EventHandler(this.buttonRefresh_Click);
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(5, 3);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(32, 32);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 9;
+            this.pictureBox1.TabStop = false;
+            // 
+            // linkLabelUsbConfig
+            // 
+            this.linkLabelUsbConfig.AutoSize = true;
+            this.linkLabelUsbConfig.Location = new System.Drawing.Point(393, 337);
+            this.linkLabelUsbConfig.Name = "linkLabelUsbConfig";
+            this.linkLabelUsbConfig.Size = new System.Drawing.Size(71, 12);
+            this.linkLabelUsbConfig.TabIndex = 19;
+            this.linkLabelUsbConfig.TabStop = true;
+            this.linkLabelUsbConfig.Text = "USB连接配置";
+            this.linkLabelUsbConfig.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelUsbConfig_LinkClicked);
+            // 
             // Printer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -421,6 +434,7 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox textBoxPrintCount;
         private System.Windows.Forms.CheckBox checkBoxAutoPrint;
+        private System.Windows.Forms.LinkLabel linkLabelUsbConfig;
     }
 }
 

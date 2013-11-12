@@ -4,10 +4,10 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING .ISS SCRIPT FILES!
 
 [Setup]
-AppName=Emdoor Factory Tools
+AppName=亿道生产工具箱
 AppVersion=1.0
 DefaultDirName={pf}\Emdoor\亿道生产工具箱
-DefaultGroupName=Emdoor Tools
+DefaultGroupName=亿道生产工具箱
 UninstallDisplayIcon={app}\BarcodeTools.exe
 Compression=lzma2
 SolidCompression=yes
@@ -25,14 +25,22 @@ Name: chs; MessagesFile: compiler:Default.isl
 Source: "..\IMEI_Reader\bin\Release\BarcodeTools.exe"; DestDir: "{app}";Flags:ignoreversion
 Source: "..\IMEI_Reader\bin\Release\Common.dll"; DestDir: "{app}";Flags:ignoreversion
 Source: "..\IMEI_Reader\bin\Release\Managed.AndroidDebugBridge.dll"; DestDir: "{app}";Flags:ignoreversion
+Source: "barcode.ico"; DestDir: "{app}";Flags:ignoreversion
+Source: "download.ico"; DestDir: "{app}";Flags:ignoreversion
+Source: "setting.ico"; DestDir: "{app}";Flags:ignoreversion
+Source: "../bin/adb.exe"; DestDir: "{app}";Flags:ignoreversion
+Source: "../bin/AdbWinApi.dll"; DestDir: "{app}";Flags:ignoreversion
+Source: "../bin/AdbWinUsbApi.dll"; DestDir: "{app}";Flags:ignoreversion
+Source: "../bin/TSCLib.dll"; DestDir: "{app}";Flags:ignoreversion
+Source: "../bin/UL.PCX"; DestDir: "{app}";Flags:ignoreversion
 Source: "readme.txt"; DestDir: "{app}"; Flags:ignoreversion isreadme
 
 
 [Icons]
-Name: "{group}\条码打印"; Filename: "{app}\BarcodeTools.exe"
-Name: "{group}\串号烧录"; Filename: "{app}\BarcodeTools.exe";Parameters:"write"
+Name: "{group}\条码打印(Marvell)"; Filename: "{app}\BarcodeTools.exe";IconFilename:"{app}\barcode.ico"
+Name: "{group}\USB连接设置"; Filename: "{app}\BarcodeTools.exe";Parameters:"usb_config";IconFilename:"{app}\setting.ico";Name: "{group}\串号烧录(Marvell)"; Filename: "{app}\BarcodeTools.exe";Parameters:"write";IconFilename:"{app}\download.ico"
 Name: "{group}\卸载"; Filename: "{app}\unins000.exe"
-Name: "{commondesktop}\条码打印工具"; Filename: "{app}\BarcodeTools.exe"
+Name: "{commondesktop}\条码打印(Marvell)"; Filename: "{app}\BarcodeTools.exe";IconFilename:"{app}\barcode.ico";Name: "{commondesktop}\串号烧录(Marvell)"; Filename: "{app}\BarcodeTools.exe";Parameters:"write";IconFilename:"{app}\download.ico"
 
 [Code]
 

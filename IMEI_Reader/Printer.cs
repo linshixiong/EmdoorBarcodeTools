@@ -19,9 +19,6 @@ namespace IMEI_Reader
         public Printer()
         {
             InitializeComponent();
-
-
-
             mHandler = new MessageHandler(this.HandleMessge);
             detetor = new DeviceDetector(mHandler, this);
             this.UpdateUI();
@@ -592,6 +589,15 @@ namespace IMEI_Reader
                 default:
                     return "Unknown:";
                     
+            }
+        }
+
+        private void linkLabelUsbConfig_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            UsbConfig usbConfig = new UsbConfig();
+            if (usbConfig.ShowDialog() == DialogResult.OK)
+            {
+                detetor.updateDeviceCount();
             }
         }
 

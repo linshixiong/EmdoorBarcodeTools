@@ -41,6 +41,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="UsbConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UsbConfig.Designer.cs">
+      <DependentUpon>UsbConfig.cs</DependentUpon>
+    </Compile>
     <Compile Include="WriterConfig.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -61,6 +67,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="UsbConfig.resx">
+      <DependentUpon>UsbConfig.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="WriterConfig.resx">
       <DependentUpon>WriterConfig.cs</DependentUpon>
     </EmbeddedResource>

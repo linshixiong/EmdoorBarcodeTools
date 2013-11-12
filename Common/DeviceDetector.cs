@@ -11,6 +11,10 @@ namespace Common
     public class DeviceDetector
     {
 
+        public static int pid=0x4E4A;
+        public static int vid = 0x0BB4;
+        public static int mi = 5;
+
         private int deviceCount;
 
         private WMIUsbQuery usbQuery;
@@ -31,6 +35,12 @@ namespace Common
 
         }
 
+        public void updateDeviceCount()
+        {
+            Thread thread = new Thread(new ParameterizedThreadStart(this.updateDeviceCount));
+            thread.Start(null);
+        }
+
         private void updateDeviceCount(object o)
         {
             deviceCount = WMIUsbQuery.GetDeviceCount();
@@ -45,28 +55,15 @@ namespace Common
 
                 ManagementBaseObject mbo = e.NewEvent["TargetInstance"] as ManagementBaseObject;
 
-
-               // Form form = this.form;
-
                 if (mbo != null && mbo.ClassPath.ClassName == "Win32_USBControllerDevice")
                 {
                     String dependent = (mbo["Dependent"] as String).Split(new Char[] { '=' })[1];
-                    string pid ="4E16";//  Configurator.Instance.ReadConfig(Configurator.CONFIG_KEY_PID);
-                    string pid2 = "4E4A";
-                    string vid ="0BB4";// Configurator.Instance.ReadConfig(Configurator.CONFIG_KEY_VID);
 
-                    //"USB\\VID_0BB4&PID_4E4A&MI_00\\7&10C8569B&0&0000"
+                   // string VIDPID = "VID_" + vid.ToString("X4") + "&PID_" + pid.ToString("X4") + "&MI_" + mi.ToString("D2");
 
-                    string VIDPID = "VID_" + vid + "&PID_" + pid+ "&MI_" + "05";
-
-                    String VIDPID2 = "VID_" + vid + "&PID_" + pid2 + "&MI_" + "05";
-
-                    if (!dependent.Contains(VIDPID) && !dependent.Contains(VIDPID2))
-                    {
-                        return;
-                    }
-
+    
                     deviceCount = WMIUsbQuery.GetDeviceCount();
+                    
                     form.Invoke(handler, Messages.MSG_UPDATE_DEVICE_COUNT, deviceCount);
 
                 }

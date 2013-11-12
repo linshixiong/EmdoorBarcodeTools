@@ -14,7 +14,6 @@ namespace Common
         private static string adbFilePath = string.Format("{0}adb.exe", AppDomain.CurrentDomain.BaseDirectory);
 
 
-
         private MessageHandler handler;
 
         private Form form;

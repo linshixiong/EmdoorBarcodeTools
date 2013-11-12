@@ -37,7 +37,7 @@ namespace Common
         /// </summary>
         /// <param name="cmd">命令</param>
         /// <returns></returns>
-        public static string Cmd(string cmd ,string  param)
+        public static string Cmd(string cmd, string param)
         {
             Process proc = new Process();
             proc.StartInfo.CreateNoWindow = true;
@@ -50,7 +50,7 @@ namespace Common
             proc.Start();
 
             string output = proc.StandardOutput.ReadToEnd();
-           return output;
+            return output;
         }
 
         public static bool IsVenderSupport(int vid)
