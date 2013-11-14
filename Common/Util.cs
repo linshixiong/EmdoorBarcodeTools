@@ -323,6 +323,52 @@ namespace Common
             return buff;
         }
 
+        public static String CalculateIMEI(String header, String sn)
+        {
+            String imeiString = header + sn;
+
+            return imeiString + GetIMEICheckDigit(imeiString);
+        }
+
+
+
+        public static char GetIMEICheckDigit(String imei)
+        {
+            int i;
+            int sum1 = 0, sum2 = 0, total = 0;
+            int temp = 0;
+
+            for (i = 0; i < 14; i++)
+            {
+                if ((i % 2) == 0)
+                {
+                    sum1 = sum1 + imei[i] - '0';
+                }
+                else
+                {
+                    temp = (imei[i] - '0') * 2;
+                    if (temp < 10)
+                    {
+                        sum2 = sum2 + temp;
+                    }
+                    else
+                    {
+                        sum2 = sum2 + 1 + temp - 10;
+                    }
+                }
+            }
+
+            total = sum1 + sum2;
+
+            if ((total % 10) == 0)
+            {
+                return '0';
+            }
+            else
+            {
+                return (char)(((total / 10) * 10) + 10 - total + '0');
+            }
+        }
 
     }
 }
